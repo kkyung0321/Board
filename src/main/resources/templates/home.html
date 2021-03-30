@@ -1,0 +1,162 @@
+<!doctype html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/home/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/home/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/home/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="/home/css/style.css">
+    <title>Home</title>
+</head>
+<body style="overflow-x:hidden">
+
+
+<div class="content">
+
+    <div class="container">
+
+        <div class="row mb-5 justify-content-end" style="font-size: 20px">
+            <div class="col-md-6 text-right">
+                <a class="mr-2" th:href="@{/writePost}" sec:authorize="isAuthenticated()"
+                   style="font-weight : 500 ;color: #000000">
+                    <span>Write</span>
+                </a>
+                <a class="mr-2" th:href="@{/memberInfo}" sec:authorize="isAuthenticated()"
+                   style="font-weight : 500 ;color: #000000">
+                    <span>MemberInfo</span>
+                </a>
+                <a class="mr-2" th:href="@{/myposts(page=0)}" sec:authorize="isAuthenticated()"
+                   style="font-weight : 500 ;color: #000000">
+                    <span>MyPosts</span>
+                </a>
+                <a class="mr-2" th:href="@{/myreplies(page=0)}" sec:authorize="isAuthenticated()"
+                   style="font-weight : 500 ;color: #000000">
+                    <span>MyReplies</span>
+                </a>
+                <a class="mr-2" href="/login" sec:authorize="isAnonymous()" style="font-weight : 500 ;color: #000000">
+                    <span>Login</span>
+                </a>
+                <a class="mr-2" href="/register" sec:authorize="isAnonymous()"
+                   style="font-weight : 500 ;color: #000000">
+                    <span>Register</span>
+                </a>
+                <form hidden id="logout" th:action="@{/logout}" method="post"></form>
+                <a class="mr-2" href="#" sec:authorize="isAuthenticated()"
+                   style="font-weight : 500 ;color: #000000"
+                   onclick="document.getElementById('logout').submit();">
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+
+        <h2 class="mb-5" style="text-align: center ; font-size: 40px">
+            <a th:href="@{/home(page=0)}"><span style="color: #000000; ">Home</span></a>
+        </h2>
+
+        <div style="font-size: 20px" class="table-responsive mb-4">
+
+            <table class="table custom-table">
+                <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Writer</th>
+                    <th scope="col">CreatedDate</th>
+                </tr>
+                </thead>
+
+                <tbody th:each="postsResDto : ${postsResDtos}">
+                <tr>
+                    <td>
+                        <a style="color: #1b1e21;"
+                           th:href="@{/post(postId=${postsResDto.postId})}">
+                            <span th:text="${postsResDto.title}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a style="color: #1b1e21; "
+                           th:href="@{/post(postId=${postsResDto.postId})}">
+                            <span th:text="${postsResDto.content}"></span>
+                        </a>
+                    </td>
+                    <td style="color: #1b1e21" th:text="${postsResDto.nickname}"></td>
+                    <td style="color: #1b1e21" th:text="${postsResDto.createdDate}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="row offset-2">
+            <div class="col">
+                <nav>
+                    <ul class="pagination "
+                        th:with="start=${T(Math).floor(postsResDtos.number/10)*10},
+                    last=(${start + 9 < postsResDtos.totalPages ? start + 9 : postsResDtos.totalPages-1}),
+                    last=(${last > 0 ? last : 0})">
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/home(page=0)}" aria-label="First">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+
+                        <li class="page-item" th:class="${postsResDtos.first} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="${postsResDtos.first} ? '#' :@{/home(page=${postsResDtos.number-1})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+
+                        <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}"
+                            th:class="${page == postsResDtos.number} ? 'page-item active'">
+                            <a class="page-link" th:text="${page}" th:href="@{/home(page=${page})}"></a>
+                        </li>
+
+                        <li class="page-item" th:class="${postsResDtos.last} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="${postsResDtos.last} ? '#' : @{/home(page=${postsResDtos.number + 1})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link"
+                               th:href="@{/home(page=${postsResDtos.totalPages-1} < 0 ? 0 : ${postsResDtos.totalPages-1})}"
+                               aria-label="Last">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col">
+                <form th:action="@{/search}" method="get" id="search" style="display: inline-block">
+                    <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Search"
+                           style="width: 200px">
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/home/js/jquery-3.3.1.min.js"></script>
+<script src="/home/js/popper.min.js"></script>
+<script src="/home/js/bootstrap.min.js"></script>
+<script src="/home/js/main.js"></script>
+</body>
+</html>

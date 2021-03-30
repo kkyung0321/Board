@@ -1,0 +1,98 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/form/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/form/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/form/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="/form/css/style.css">
+
+    <title>MemberInfo</title>
+</head>
+<body>
+
+
+<div class="content">
+
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 offset-3">
+                <div class="box">
+                    <h3 class="heading">MemberInfo</h3>
+                    <form class="mb-4" th:action="@{/memberInfo}" method="post" id="memberForm" name="memberForm">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="username" class="col-form-label">Username</label>
+                                <input type="text" class="form-control" name="username" id="username"
+                                       th:value="${username}" readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="nickname" class="col-form-label">Nickname</label>
+                                <input type="text" class="form-control" name="nickname" id="nickname"
+                                       th:value="${nickname}">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12 form-group">
+                                <label for="email" class="col-form-label">Email</label>
+                                <input type="text" class="form-control" name="email" id="email" th:value="${email}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" value="Edit MemberInfo"
+                                       class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                <span class="submitting"></span>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form>
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <input th:formaction="@{/deleteMember}" formmethod="get" type="submit" value="Sign Out"
+                                       class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                <span class="submitting"></span>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form>
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <input th:formaction="@{/home(page=0)}" formmethod="get" type="submit" value="Home"
+                                       class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                <span class="submitting"></span>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="text-center" id="form-message-warning mt-4">
+                        <p style="font-size: 20px; color: #B90B0B" th:text="${msg}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/form/js/jquery-3.3.1.min.js"></script>
+<script src="/form/js/popper.min.js"></script>
+<script src="/form/js/bootstrap.min.js"></script>
+<script src="/form/js/jquery.validate.min.js"></script>
+<script src="/form/js/main.js"></script>
+</body>
+</html>

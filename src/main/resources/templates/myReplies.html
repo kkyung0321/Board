@@ -1,0 +1,111 @@
+<!doctype html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/home/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/home/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/home/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="/home/css/style.css">
+    <title>MyReplies</title>
+</head>
+<body>
+
+
+<div class="content" style="padding-top: 50px">
+
+    <div class="container">
+        <h2 class="mb-5" style="text-align: center ; font-size: 40px">
+            <a th:href="@{/home(page=0)}"><span style="color: #000000; ">Go To Home</span></a>
+        </h2>
+
+        <div style="font-size: 20px" class="table-responsive mb-4">
+
+            <table class="table custom-table">
+                <thead>
+                <tr>
+                    <th scope="col">Content</th>
+                    <th scope="col">CreatedDate</th>
+                </tr>
+                </thead>
+
+                <tbody th:each="myRepliesResDto : ${myRepliesResDtos}">
+                <tr>
+                    <td>
+                        <a style="color: #1b1e21; "
+                           th:href="@{/post(postId=${myRepliesResDto.postId})}" target="_blank">
+                            <span th:text="${myRepliesResDto.rContent}"></span>
+                        </a>
+                    </td>
+                    <td style="color: #1b1e21; " th:text="${myRepliesResDto.createdDate}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="row offset-2">
+            <div class="col">
+                <nav>
+                    <ul class="pagination "
+                        th:with="start=${T(Math).floor(myRepliesResDtos.number/10)*10},
+                    last=(${start + 9 < myRepliesResDtos.totalPages ? start + 9 : myRepliesResDtos.totalPages-1}),
+                    last=(${last > 0 ? last : 0})">
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/myreplies(page=0)}" aria-label="First">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+
+                        <li class="page-item" th:class="${myRepliesResDtos.first} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="${myRepliesResDtos.first} ? '#' :@{/myreplies(page=${myRepliesResDtos.number-1})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+
+                        <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}"
+                            th:class="${page == myRepliesResDtos.number} ? 'page-item active'">
+                            <a class="page-link" th:text="${page}" th:href="@{/myreplies(page=${page})}"></a>
+                        </li>
+
+                        <li class="page-item" th:class="${myRepliesResDtos.last} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="${myRepliesResDtos.last} ? '#' : @{/myreplies(page=${myRepliesResDtos.number + 1})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/myreplies(page=${myRepliesResDtos.totalPages-1} < 0 ? 0 : ${myRepliesResDtos.totalPages-1})}"
+                               aria-label="Last">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/home/js/jquery-3.3.1.min.js"></script>
+<script src="/home/js/popper.min.js"></script>
+<script src="/home/js/bootstrap.min.js"></script>
+<script src="/home/js/main.js"></script>
+</body>
+</html>

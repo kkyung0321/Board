@@ -1,0 +1,102 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/form/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/form/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/form/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="/form/css/style.css">
+
+    <title>Write</title>
+</head>
+<body>
+
+
+<div class="content">
+
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 offset-3">
+                <div class="box">
+                    <h3 class="heading">Write</h3>
+                    <form class="mb-3" th:action="@{/writePost}" method="post" id="writeForm" name="writeForm">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="title" class="col-form-label">Title</label>
+                                <input type="text" class="form-control" name="title" id="title" placeholder="title"
+                                       th:value="${postResDto} ? ${postResDto.title} : ''" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="content" class="col-form-label">Content</label>
+                                <textarea type="text" class="form-control" name="content" id="content"
+                                          placeholder="content" th:text="${postResDto} ? ${postResDto.content} : ''"
+                                          cols="30" rows="7" required></textarea>
+                            </div>
+                        </div>
+
+                        <div th:if="${postResDto} == null" class="row">
+                            <div class="col-md-12">
+                                <input type="submit" value="Write"
+                                       class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                <span class="submitting"></span>
+                            </div>
+                        </div>
+
+                        <div th:if="${postResDto}" class="row">
+                            <div class="col-md-12">
+                                <input hidden name="postId" th:value="${postResDto.postId}">
+                                <input th:formaction="@{/editPost}" formmethod="post"
+                                       type="submit" value="Edit" class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                <span class="submitting"></span>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <form th:action="@{/post}" method="get">
+                        <div th:if="${postResDto}" class="row">
+                            <div class="col-md-12">
+                                <input hidden name="postId" th:value="${postResDto.postId}">
+                                <input type="submit" value="Back"
+                                       class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                <span class="submitting"></span>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form th:action="@{/home(page=0)}" method="get">
+                        <div th:if="${postResDto} == null" class="row">
+                            <div class="col-md-12">
+                                <input type="submit" value="Home"
+                                       class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                <span class="submitting"></span>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/form/js/jquery-3.3.1.min.js"></script>
+<script src="/form/js/popper.min.js"></script>
+<script src="/form/js/bootstrap.min.js"></script>
+<script src="/form/js/jquery.validate.min.js"></script>
+<script src="/form/js/main.js"></script>
+</body>
+</html>

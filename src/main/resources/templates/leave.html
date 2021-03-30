@@ -1,0 +1,74 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/form/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/form/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/form/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="/form/css/style.css">
+
+    <title>Sign Out</title>
+</head>
+<body>
+
+
+<div class="content">
+
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 offset-3">
+                <div class="box">
+                    <h3 class="heading">Sign Out</h3>
+                    <form class="mb-3" th:action="@{/deleteMember}" method="post" id="memberForm" name="memberForm">
+                        <div class="row mb-3">
+                            <div class="col-md-12 form-group">
+                                <label for="password" class="col-form-label">Password</label>
+                                <input type="password" class="form-control" name="password" id="password">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" value="Sign Out"
+                                       class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                <span class="submitting"></span>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form th:action="@{/home(page=0)}" method="get">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" value="Home"
+                                       class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                <span class="submitting"></span>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="text-center" id="form-message-warning mt-4">
+                        <p style="font-size: 20px; color: #B90B0B" th:text="${res}"></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/form/js/jquery-3.3.1.min.js"></script>
+<script src="/form/js/popper.min.js"></script>
+<script src="/form/js/bootstrap.min.js"></script>
+<script src="/form/js/jquery.validate.min.js"></script>
+<script src="/form/js/main.js"></script>
+</body>
+</html>

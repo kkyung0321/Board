@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/form/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/form/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/form/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="/form/css/style.css">
+
+    <title>Post</title>
+</head>
+<body>
+
+
+<div class="content">
+
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="box">
+                    <h3 class="heading">Post</h3>
+                    <div class="row">
+                        <input hidden name="postId" th:value="${postAndRepliesResDto.postId}">
+                        <div class="col-md-12 form-group">
+                            <label for="title" class="col-form-label">Title</label>
+                            <input type="text" class="form-control" name="title" id="title" placeholder="title"
+                                   th:value="${postAndRepliesResDto.title}" required readonly
+                                   style="background-color: #ffffff">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="content" class="col-form-label">Content</label>
+                            <textarea type="text" class="form-control" name="content" id="content"
+                                      placeholder="content"
+                                      cols="30" rows="7" th:text="${postAndRepliesResDto.content}"
+                                      required readonly style="background-color: #ffffff">
+                            </textarea>
+                        </div>
+                    </div>
+
+                    <div th:class="${#authentication.getName() != postAndRepliesResDto.username} ? 'row justify-content-center' : 'row'">
+                        <div class="col-md-4 align-items-center align-content-center">
+                            <form th:action="@{/home}" method="get">
+                                <input type="submit" value="Home" class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                <span class="submitting"></span>
+                            </form>
+                        </div>
+                        <div class="col-md-4 align-items-center align-content-center"
+                             th:if="${#authentication.getName() == postAndRepliesResDto.username}">
+                            <form th:action="@{/editPost}" method="get">
+                                <input type="text" name="postId" th:value="${postAndRepliesResDto.postId}" hidden>
+                                <input type="submit" value="Edit" class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                <span class="submitting"></span>
+                            </form>
+                        </div>
+
+                        <div class="col-md-4 align-items-center align-content-center"
+                             th:if="${#authentication.getName() == postAndRepliesResDto.username}">
+                            <form th:action="@{/deletePost}" method="get">
+                                <input type="text" name="postId" th:value="${postAndRepliesResDto.postId}" hidden>
+                                <input type="submit" value="Delete"
+                                       class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                <span class="submitting"></span>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="box">
+                    <h3 class="heading">Reply</h3>
+                    <div>
+                        <table class="table align-middle">
+                            <tbody th:if="${!postAndRepliesResDto.replies.content.isEmpty()}">
+                            <tr th:each="reply : ${postAndRepliesResDto.replies.content}">
+                                <td th:text="${reply.nickname}"></td>
+                                <td th:text="${reply.rContent}"></td>
+                                <td th:text="${reply.createdDate}"></td>
+                                <td th:if="${#authentication.getName() == postAndRepliesResDto.username}">
+                                    <form th:action="@{/deleteReply}" method="get">
+                                        <input type="text" name="postId" th:value="${postAndRepliesResDto.postId}"
+                                               hidden>
+                                        <input type="text" name="replyId" th:value="${reply.replyId}" hidden>
+                                        <input type="submit" value="Delete"
+                                               class="btn-sm btn-block btn-primary rounded-0 py-1 px-1"
+                                               style="color: white">
+                                        <span class="submitting"></span>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <nav>
+                            <ul class="pagination justify-content-center"
+                                th:with="start=${T(Math).floor(postAndRepliesResDto.replies.number/10)*10},
+                    last=(${start + 4 < postAndRepliesResDto.replies.totalPages ? start + 4 : postAndRepliesResDto.replies.totalPages-1}),
+                    last=(${last > 0 ? last : 0})">
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       th:href="@{/post(postId=${postAndRepliesResDto.postId},page=0)}"
+                                       aria-label="First">
+                                        <span aria-hidden="true">First</span>
+                                    </a>
+                                </li>
+
+                                <li class="page-item" th:class="${postAndRepliesResDto.replies.first} ? 'disabled'">
+                                    <a class="page-link"
+                                       th:href="${postAndRepliesResDto.replies.first} ? '#' : @{/post(postId=${postAndRepliesResDto.postId},page=${postAndRepliesResDto.replies.number-1})}"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&lt;</span>
+                                    </a>
+                                </li>
+
+                                <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}"
+                                    th:class="${page == postAndRepliesResDto.replies.number} ? 'page-item active'">
+                                    <a class="page-link" th:text="${page}"
+                                       th:href="@{/post(postId=${postAndRepliesResDto.postId},page=${page})}"></a>
+                                </li>
+
+                                <li class="page-item" th:class="${postAndRepliesResDto.replies.last} ? 'disabled'">
+                                    <a class="page-link"
+                                       th:href="${postAndRepliesResDto.replies.last} ? '#' :
+                                       @{/post(postId=${postAndRepliesResDto.postId},page=${postAndRepliesResDto.replies.number + 1})}"
+                                       aria-label="Next">
+                                        <span aria-hidden="true">&gt;</span>
+                                    </a>
+                                </li>
+
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       th:href="@{/post(postId=${postAndRepliesResDto.postId}
+                                       ,page=${postAndRepliesResDto.replies.totalPages-1} < 0 ? 0 : ${postAndRepliesResDto.replies.totalPages-1})}"
+                                       aria-label="Last">
+                                        <span aria-hidden="true">Last</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                        <form class="mb-3" th:action="@{/writeReply}" method="post" id="replyForm" name="replyForm">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <input hidden name="postId" th:value="${postAndRepliesResDto.postId}">
+                                    <label for="rContent" class="col-form-label"></label>
+                                    <textarea sec:authorize="isAuthenticated()" type="text" class="form-control"
+                                              name="rContent" id="rContent"
+                                              cols="30" rows="3" placeholder="Write Reply" required></textarea>
+                                    <textarea sec:authorize="isAnonymous()" type="text" class="form-control"
+                                              name="rContent"
+                                              cols="30" rows="3" placeholder="Write Reply" required readonly></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input sec:authorize="isAuthenticated()" type="submit" value="Submit"
+                                           class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                    <input sec:authorize="isAnonymous()" disabled type="submit" value="Submit"
+                                           class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                    <span class="submitting"></span>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script src="/form/js/jquery-3.3.1.min.js"></script>
+<script src="/form/js/popper.min.js"></script>
+<script src="/form/js/bootstrap.min.js"></script>
+<script src="/form/js/jquery.validate.min.js"></script>
+<script src="/form/js/main.js"></script>
+</body>
+</html>

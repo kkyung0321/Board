@@ -6,20 +6,16 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:h2:file:/home/kiyoung/h2db/sessionUser
-    username: user
-    password: password
-
-  h2:
-    console:
-      path: /h2-console
-      enabled: true
+    url: jdbc:mysql://localhost:3306/testDB?serverTimezone=Asia/Seoul&createDatabaseIfNotExist=true
+    username: kiyoung
+    password: 0412Rlarud!
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     generate-ddl: true
     hibernate:
       default_batch_fetch_size: 100
-      ddl-auto: update
+      ddl-auto: create
     open-in-view: false
     show-sql: true
 

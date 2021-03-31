@@ -6,9 +6,9 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/testDB?serverTimezone=Asia/Seoul&createDatabaseIfNotExist=true
-    username: kiyoung
-    password: 0412Rlarud!
+    url: jdbc:mysql://${mysql_address}:3306/testDB?serverTimezone=Asia/Seoul&createDatabaseIfNotExist=true
+    username: ${mysql_username}
+    password: ${mysql_password}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

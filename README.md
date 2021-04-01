@@ -18,7 +18,7 @@ www.kkyportfolio.tk
 **언어** : Java <br>
 **프레임워크** : Spring Boot, JPA <br>
 **데이터베이스** : Mysql <br>
-**서버** : Ubuntu
+**서버** : Ubuntu <br>
 **클라우드** : AWS
 
 </div>

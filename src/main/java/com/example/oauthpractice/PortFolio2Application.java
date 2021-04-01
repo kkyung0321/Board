@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-public class OauthPracticeApplication {
+public class PortFolio2Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(OauthPracticeApplication.class, args);
+        SpringApplication.run(PortFolio2Application.class, args);
     }
 }

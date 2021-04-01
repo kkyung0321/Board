@@ -1,9 +1,3 @@
-logging:
-  file:
-    name: 'myapp-log'
-    path: '~/log'
-
-
 spring:
   datasource:
     url: jdbc:mysql://${mysql_address}:3306/testDB?serverTimezone=Asia/Seoul&createDatabaseIfNotExist=true

@@ -10,6 +10,7 @@ www.kkyportfolio.tk
   <li><a href = "#3">스크린 샷</a></li>
 
 </ol>
+<br>
 
 <div id = "1">
 
@@ -22,6 +23,7 @@ www.kkyportfolio.tk
 **클라우드** : AWS
 
 </div>
+<br>
 
 <div id = "2">
 
@@ -40,7 +42,8 @@ thymeleaf와 colorlib라는 무료 템플릿을 이용하여 개발하였으며 
 </div>
 
 <div id = "3">
-
+<br>
+  
 ### 스크린샷
 
 <img src="https://user-images.githubusercontent.com/41039867/110206002-a447ff80-7ebe-11eb-9e0f-efff08d4a6fe.png" width="150px" height="230px" hspace="2">

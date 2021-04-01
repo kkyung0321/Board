@@ -7,7 +7,7 @@ www.kkyportfolio.tk
 <ol>
   <li><a href = "#1">사용 기술</a></li>
   <li><a href = "#2">프로그램 설명</a></li>
-  <li><a href = "#3">스크린 샷</a></li>
+  <li><a href = "#3">스크린샷</a></li>
 
 </ol>
 <br>

@@ -28,14 +28,13 @@ public class PostController {
     private final MemberService memberService;
     private final AuthenticationFacade authenticationFacade;
 
-    @GetMapping("/home")
+    @GetMapping(value = {"/", "/home"})
     public String getHome(@PageableDefault(page = 0, size = 10,
             direction = Sort.Direction.DESC, sort = "id") Pageable pageable,
                           Model model) {
 
         Page<PostsResDto> postsResDtos = postService.postsWithPage(pageable);
         model.addAttribute("postsResDtos", postsResDtos);
-
         return "home";
     }
 

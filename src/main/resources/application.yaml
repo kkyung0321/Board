@@ -16,3 +16,12 @@ spring:
   mvc:
     view:
       suffix: ".html"
+
+server:
+  tomcat:
+    accesslog:
+      enabled: true
+      pattern: "%{X-Forwarded-For}i %l %u %{YYYY-MM-DD}t %r %s %b"
+      max-days: 30
+      directory: ./log
+

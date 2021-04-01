@@ -46,7 +46,9 @@ thymeleaf와 colorlib라는 무료 템플릿을 이용하여 개발하였으며 
   
 ### 스크린샷
 
-<img src="https://user-images.githubusercontent.com/41039867/110206002-a447ff80-7ebe-11eb-9e0f-efff08d4a6fe.png" width="150px" height="230px" hspace="2">
+<img src="https://user-images.githubusercontent.com/41039867/113330519-c9168200-9359-11eb-8a78-ad2417ca9f81.png" width="200px" height="230px" hspace="2">
+<img src="https://user-images.githubusercontent.com/41039867/113330525-ca47af00-9359-11eb-9715-129168f4b264.png" width="200px" height="230px" hspace="2">
+<img src="https://user-images.githubusercontent.com/41039867/113330529-cae04580-9359-11eb-9456-50bd87f04002.png" width="200px" height="230px" hspace="2">
 
 </div>
 

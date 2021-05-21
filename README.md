@@ -17,7 +17,8 @@
 ### 사용 기술
 
 **언어** : Java <br>
-**프레임워크** : Spring Boot, JPA <br>
+**프레임워크** : Spring Boot <br>
+**라이브러리** : JPA <br>
 **데이터베이스** : Mysql <br>
 **서버** : Ubuntu <br>
 **클라우드** : AWS

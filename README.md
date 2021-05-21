@@ -1,6 +1,6 @@
 # 게시판
 
-www.kkyportfolio.tk
+사이트 주소 : https://www.kkyportfolio.tk
 
 ### 목차
 

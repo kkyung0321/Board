@@ -47,9 +47,9 @@ public class PostService {
 
     public PostAndRepliesResDto readOneWithReplies(Long postId, Pageable pageable) {
 
-        Post post = postRepository.findPostWithMember(postId).get();
+        Post post = postRepository.findPostByPMember(postId).get();
 
-        Page<Reply> repliesWithMember = replyRepository.findRepliesWithMember(postId, pageable);
+        Page<Reply> repliesWithMember = replyRepository.findRepliesByRMember(postId, pageable);
 
         PostAndRepliesResDto postAndRepliesResDto = PostAndRepliesResDto.of(post, repliesWithMember);
 
@@ -59,7 +59,7 @@ public class PostService {
     public void edit(Long postId, String title, String content) throws IllegalArgumentException {
         Post post = postRepository.findById(postId).get();
 
-        post.edit(title, content);
+        post.editPost(title, content);
     }
 
     public void delete(Long postId) {
@@ -67,7 +67,7 @@ public class PostService {
     }
 
     public Page<PostsResDto> postsWithPage(Pageable pageable) {
-        Page<Post> postsWithMember = postRepository.findPostsWithMember(pageable);
+        Page<Post> postsWithMember = postRepository.findPostByPMember(pageable);
 
         Page<PostsResDto> postsResDtos = PostsResDto.of(postsWithMember);
 

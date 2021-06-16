@@ -23,6 +23,7 @@ repositories {
 }
 
 dependencies {
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
     implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'

@@ -11,7 +11,7 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
     @Query(value = "select r from Reply r join fetch r.rMember m where r.post.id = :postId",
             countQuery = "select count(r) from Reply r where r.post.id = :postId")
-    Page<Reply> findRepliesWithMember(@Param("postId") Long postId, Pageable pageable);
+    Page<Reply> findRepliesByRMember(@Param("postId") Long postId, Pageable pageable);
 
     @Query(value = "select r from Reply r join fetch r.post where r.rMember.id = :memberId",
             countQuery = "select count(r) from Reply r where r.rMember.id = :memberId")

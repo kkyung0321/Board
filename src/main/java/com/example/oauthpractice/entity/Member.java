@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +12,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -26,12 +29,21 @@ public class Member implements UserDetails {
     @GeneratedValue
     private Long id;
 
+    @NotBlank
+    @Length(min = 1, message = "이름은 한 글자 이상이어야 합니다.")
     private String username;
 
+    @NotBlank
+    @Length(min = 1, message = "비밀번호는 한 글자 이상이어야 합니다.")
     private String password;
 
+    @NotBlank
+    @Length(min = 1, message = "닉네임은 한 글자 이상이어야 합니다.")
     private String nickname;
 
+    @NotBlank
+    @Email
+    @Length(min = 3, message = "Email 세 글자 이상이어야 합니다.")
     private String email;
 
     @Enumerated(value = EnumType.STRING)

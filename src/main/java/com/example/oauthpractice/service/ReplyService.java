@@ -43,7 +43,7 @@ public class ReplyService {
         Reply reply = replyRepository.findById(replyId)
                 .orElseThrow(() -> new IllegalArgumentException("id doesn't exist : " + replyId));
 
-        reply.edit(rContent);
+        reply.editReply(rContent);
     }
 
     public void delete(Long replyId) {

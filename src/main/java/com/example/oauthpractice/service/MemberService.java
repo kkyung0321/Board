@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -26,30 +27,29 @@ public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final AuthenticationFacade authenticationFacade;
 
-    public void usernameDuplicationCheck(String username) throws SameUsernameException {
+    public void usernameDuplicationCheck(String username) {
 
-        if (memberRepository.countByUsernameContaining(username) != 0L)
+        if (memberRepository.countByUsernameContaining(username) != 0L) {
             throw new SameUsernameException("username already exists");
-        else ;
+        }
     }
 
-    public void nicknameDuplicationCheck(String username) throws SameNicknameException {
+    public void nicknameDuplicationCheck(String username) {
 
-        if (memberRepository.countByNicknameContaining(username) != 0L)
+        if (memberRepository.countByNicknameContaining(username) != 0L) {
             throw new SameNicknameException("nickname already exists");
-        else ;
+        }
     }
 
-    public void nicknameDuplicationcheck2(String nickname) throws SameNicknameException {
+    public void nicknameDuplicationcheck2(String nickname) {
         Member member = (Member) authenticationFacade.getAuthentication().getPrincipal();
         Member member1 = memberRepository.findByUsername(member.getUsername()).get();
 
         log.info("member1 :" + member1.getUsername() + " nickname :" + nickname);
-        if (member1.getNickname().equals(nickname))
-            return;
-        else if (memberRepository.countByNicknameContaining(nickname) != 0L)
+
+        if (!memberRepository.countByNicknameContaining(nickname).equals(0L)) {
             throw new SameNicknameException("nickname already exists");
-        else ;
+        }
     }
 
     public void save(Member member) {
@@ -57,7 +57,7 @@ public class MemberService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("username is not correct : " + username));
 

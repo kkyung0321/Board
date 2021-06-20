@@ -8,7 +8,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Entity
@@ -23,7 +22,6 @@ public class Reply {
     @GeneratedValue
     private Long id;
 
-    @NotBlank
     private String rContent;
 
     @JoinColumn(name = "member_id")
@@ -47,7 +45,7 @@ public class Reply {
         post.getReplies().add(this);
     }
 
-    public void editReply(String rContent) {
+    public void edit(String rContent) {
         this.rContent = rContent;
     }
 }

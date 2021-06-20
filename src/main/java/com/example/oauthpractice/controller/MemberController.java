@@ -3,7 +3,6 @@ package com.example.oauthpractice.controller;
 import com.example.oauthpractice.config.AuthenticationFacade;
 import com.example.oauthpractice.dto.member.MemberRegisterReqDto;
 import com.example.oauthpractice.dto.member.MemberResDto;
-import com.example.oauthpractice.dto.member.MemberUpdateReqDto;
 import com.example.oauthpractice.entity.Member;
 import com.example.oauthpractice.exception.SameNicknameException;
 import com.example.oauthpractice.exception.SameUsernameException;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +35,7 @@ public class MemberController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute MemberRegisterReqDto memberRegisterReqDto, Model model) {
+    public String register(@ModelAttribute MemberRegisterReqDto memberRegisterReqDto, Model model) {
 
         log.info(memberRegisterReqDto.toString());
 
@@ -78,9 +76,12 @@ public class MemberController {
     }
 
     @PostMapping("/memberInfo")
-    public String update(@Valid @ModelAttribute MemberUpdateReqDto memberUpdateReqDto,
-                         RedirectAttributes redirectAttributes,
-                         Model model) {
+    public String update(@RequestParam("username") String username,
+                         @RequestParam("nickname") String nickname,
+                         @RequestParam("email") String email, Model model,
+                         RedirectAttributes redirectAttributes) {
+
+        log.info("nickname : " + nickname + "; email : " + email);
 
         try {
             memberService.nicknameDuplicationcheck2(nickname);

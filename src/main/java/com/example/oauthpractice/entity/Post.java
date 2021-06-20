@@ -8,7 +8,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +24,8 @@ public class Post {
     @GeneratedValue
     private Long id;
 
-    @NotBlank
     private String title;
 
-    @NotBlank
     private String content;
 
     @JoinColumn(name = "member_id")
@@ -47,7 +44,7 @@ public class Post {
         member.getPosts().add(this);
     }
 
-    public void editPost(String title, String content) {
+    public void edit(String title, String content) {
         this.title = title;
         this.content = content;
     }

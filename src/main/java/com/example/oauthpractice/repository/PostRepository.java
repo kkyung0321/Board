@@ -12,11 +12,11 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query(value = "select p from Post p join fetch p.pMember m where p.id=:postId")
-    Optional<Post> findPostByPMember(@Param("postId") Long postId);
+    Optional<Post> findPostWithMember(@Param("postId") Long postId);
 
     @Query(value = "select p from Post p join fetch p.pMember m",
             countQuery = "select count(p) from Post p")
-    Page<Post> findPostByPMember(Pageable pageable);
+    Page<Post> findPostsWithMember(Pageable pageable);
 
     Page<Post> findAllByTitleContainingOrContentContaining(@Param("title") String title,
                                                            @Param("content") String content,
